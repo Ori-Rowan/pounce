@@ -4,15 +4,13 @@ Player.__index=Player
 function Player:new(tbl)
     tbl= tbl or {}
     
+    setmetatable(tbl,self)
+    
+    assert(tbl.x  and tbl.y and tbl.scene)
+    
     tbl.dir = nil
     tbl.spd = tbl.spd or 1
-    
     tbl.spr= 1
-    
-    -- check required vars
-    assert(tbl.x  & tbl.y)
-    
-    setmetatable(tbl,self)
     
     tbl:enter_state(PLAYER_STATE.idle)
     

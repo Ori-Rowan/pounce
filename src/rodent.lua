@@ -6,6 +6,8 @@ function Rodent:new(tbl)
 
     setmetatable(tbl, self)
     
+    assert(tbl.sene)
+    
     tbl:move()
 
     return tbl
@@ -17,7 +19,7 @@ function Rodent:move()
 end
 
 function Rodent:squeek(dist)
-    volume = 7 - flr(dist / 15)
+    local volume = 7 - flr(dist / 15)
     log("Distance: "..dist)
     log("Squek vol: "..volume)
     change_sfx_volume(0, volume)

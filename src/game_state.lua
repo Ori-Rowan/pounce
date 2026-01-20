@@ -7,7 +7,7 @@ function GameState:new(tbl)
     
     setmetatable(tbl, self)
 
-    assert(tbl.timer)
+    assert(tbl.timer and tbl.scene)
 
     tbl:set_timer(tbl.timer)
     tbl.score = 0
