@@ -6,7 +6,7 @@ function Rodent:new(tbl)
 
     setmetatable(tbl, self)
     
-    assert(tbl.sene)
+    assert(tbl.scene)
     
     tbl:move()
 
