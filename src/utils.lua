@@ -5,12 +5,13 @@ function get_vector_from_points(a,b)
 	return {x=b.x-a.x,y=b.y-a.y}
 end
 
-function get_vector_lenght(v)
+function get_vector_length(v)
 	return sqrt(v.x^2+v.y^2)
 end
 
 function normalize_vector(v)
-	v.x,v.y=v.x/get_vector_lenght(v),v.y/get_vector_lenght(v)
+    if (get_vector_length(v) == 0) return log('Cannot normalize vector of lenght 0', "WARNING")
+	v.x,v.y=v.x/get_vector_length(v),v.y/get_vector_length(v)
 end
 
 function get_vector_from_angle(a)

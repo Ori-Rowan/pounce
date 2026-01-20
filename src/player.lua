@@ -119,7 +119,7 @@ end
 -- utils
 
 function Player:get_dist_from_rodent()
-    return get_vector_lenght(get_vector_from_points(self, self.scene.rodent))
+    return get_vector_length(get_vector_from_points(self, self.scene.rodent))
 end
 
 -- anims

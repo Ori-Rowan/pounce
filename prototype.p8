@@ -84,7 +84,7 @@ end
 -- rodent
 function rodent_update()
     -- get distance
-    rodent.distance = get_vector_lenght(get_vector_from_points(rodent, player))
+    rodent.distance = get_vector_length(get_vector_from_points(rodent, player))
 
     -- check timer
     if rodent.timer>0 then
