@@ -8,3 +8,4 @@ function log(msg, level)
     log_text= "["..time().."]["..level.."]: "..msg
     printh(log_text, _config.log_dir)    
 end
+    

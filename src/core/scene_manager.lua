@@ -25,6 +25,6 @@ function SceneManager:draw()
 end
 
 function SceneManager:enter_scene(scene)
-    self.current_scene = scene:new()
+    self.current_scene = scene:new({scene_manager=self})
     self.current_scene:enter()
 end

@@ -3,15 +3,15 @@ version 42
 __lua__
 
 #include config.lua
-#include src/logging.lua
 #include src/main.lua
-#include src/scene_manager.lua
-#include src/scene.lua
-#include src/game_scene.lua
-#include src/utils.lua
-#include src/player.lua
-#include src/rodent.lua
-#include src/game_state.lua
+#include src/core/scene_manager.lua
+#include src/core/scene.lua
+#include src/scenes/game_scene.lua
+#include src/utils/logging.lua
+#include src/utils/utils.lua
+#include src/gameplay/player.lua
+#include src/gameplay/rodent.lua
+#include src/gameplay/game_state.lua
 
 __gfx__
 00000000777777777777777777777777777777777777777777775757777757576777575766777777766777777776777777776677000000000000000000000000
