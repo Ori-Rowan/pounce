@@ -99,7 +99,7 @@ function Player:pounce()
         if self:get_dist_from_rodent() < max_dist then
             sfx(2)
             self.scene.rodent:move()
-            self.scene.game_state:add_score(100)
+            self.scene.score:add_score(100)
         end
         self:enter_state(PLAYER_STATE.idle)
     end
@@ -165,5 +165,6 @@ function Player:pounce_anim()
         self.spr+=1
     end
     sfx(1)
+    Camera:shake(3)
 end
 

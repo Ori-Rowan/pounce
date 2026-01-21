@@ -1,19 +1,17 @@
 
 function _init()
-    palt(7,true)
-    palt(0)
+    palt(14)
 
-
-    scene_manager = SceneManager:new()
-
-    scene_manager:enter_scene(GameScene)
+    SceneManager:enter_scene(GameScene)
 end
 
 function _update()
-    scene_manager:update()
+    Camera:update()
+    SceneManager:update()
 end
 
 function _draw()
     cls(7)
-    scene_manager:draw()
+    Camera:draw()
+    SceneManager:draw()
 end

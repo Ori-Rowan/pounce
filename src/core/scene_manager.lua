@@ -1,16 +1,6 @@
-SceneManager = {}
-SceneManager.__index = SceneManager
-
-function SceneManager:new(tbl)
-    tbl = tbl or {}
-
-    setmetatable(tbl,self)
-    
-    tbl.current_scene = nil
-
-    return tbl    
-end
-
+SceneManager = {
+    current_scene=nil
+}
 
 function SceneManager:update()
     if (self.current_scene == nil) return log("No current scene", "Warning")

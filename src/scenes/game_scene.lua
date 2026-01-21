@@ -12,16 +12,18 @@ end
 
 function GameScene:update()
     self.player:update()
-    self.game_state:update()
+    self.clock:update()
 end
 
 function GameScene:draw()
     self.player:draw()
-    self.game_state:draw()
+    self.clock:draw()
+    self.score:draw()
 end
 
 function GameScene:enter()
-    self.game_state=GameState:new({scene=self, timer=90})
+    self.clock = Clock:new({scene=self, timer=90})
+    self.score=Score:new({scene=self})
     self.rodent=Rodent:new({scene=self})
     self.player=Player:new({scene=self, x=64, y=64,})
 end
