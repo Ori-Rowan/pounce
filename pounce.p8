@@ -5,6 +5,9 @@ __lua__
 #include config.lua
 #include src/logging.lua
 #include src/main.lua
+#include src/scene_manager.lua
+#include src/scene.lua
+#include src/game_scene.lua
 #include src/utils.lua
 #include src/player.lua
 #include src/rodent.lua
