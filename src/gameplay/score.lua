@@ -7,6 +7,7 @@ function Score:new(tbl)
     setmetatable(tbl, self)
 
     tbl.value=0
+    tbl.max_digits = tbl.max_digits or 4
 
     return tbl
 end
@@ -27,7 +28,7 @@ function Score:get_score_string()
     local str = tostr(self.value)
     local score_digits = get_digits(self.value)
 
-    for i=0, 3-score_digits do
+    for i=1, self.max_digits-score_digits do
         str = "0"..str
     end
 

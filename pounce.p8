@@ -12,7 +12,6 @@ __lua__
 #include src/utils/utils.lua
 #include src/gameplay/player.lua
 #include src/gameplay/rodent.lua
-#include src/gameplay/game_state.lua
 #include src/gameplay/clock.lua
 #include src/gameplay/score.lua
 

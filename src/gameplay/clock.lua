@@ -14,8 +14,8 @@ function Clock:new(tbl)
 end
 
 function Clock:update()
-    self.timer -= 1
-    end
+    if (self.timer > 0) self.timer -= 1
+end
 
 function Clock:draw()
     local seconds = frame_to_seconds(self.timer)
