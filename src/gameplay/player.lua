@@ -61,7 +61,7 @@ function Player:idle()
     -- check other states
     if get_8d_input() then
         self:enter_state(PLAYER_STATE.walk)
-    elseif btnp(4) then
+    elseif btnp(5) then
         self:enter_state(PLAYER_STATE.pounce)
     end
 end
@@ -82,7 +82,7 @@ function Player:walk()
     -- check other states
     if p_dir==nil then
         self:enter_state(PLAYER_STATE.idle)
-    elseif btnp(4) then
+    elseif btnp(5) then
         self:enter_state(PLAYER_STATE.pounce)
     end
 end

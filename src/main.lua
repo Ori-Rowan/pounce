@@ -2,7 +2,10 @@
 function _init()
     palt(14)
 
-    SceneManager:enter_scene(GameScene)
+    log('test')
+
+    SceneManager:enter_scene(MenuScene)
+
 end
 
 function _update()

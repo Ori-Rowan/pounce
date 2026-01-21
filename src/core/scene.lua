@@ -1,7 +1,7 @@
 Scene = {}
 Scene.__index = Scene
 
-function Scene:new()
+function Scene:new(tbl)
     tbl = tbl or {}
 
     setmetatable(tbl,self)

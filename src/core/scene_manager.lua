@@ -14,7 +14,8 @@ function SceneManager:draw()
     self.current_scene:draw()
 end
 
-function SceneManager:enter_scene(scene)
-    self.current_scene = scene:new({scene_manager=self})
+function SceneManager:enter_scene(scene, tbl)
+    tbl = tbl or {}
+    self.current_scene = scene:new(tbl)
     self.current_scene:enter()
 end

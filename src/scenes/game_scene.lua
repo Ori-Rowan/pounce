@@ -13,6 +13,10 @@ end
 function GameScene:update()
     self.player:update()
     self.clock:update()
+
+    if self.clock.timer == 0 then
+        SceneManager:enter_scene(GameOverScene, {score=self.score.value})
+    end
 end
 
 function GameScene:draw()
@@ -25,5 +29,5 @@ function GameScene:enter()
     self.clock = Clock:new({scene=self, timer=90})
     self.score=Score:new({scene=self})
     self.rodent=Rodent:new({scene=self})
-    self.player=Player:new({scene=self, x=64, y=64,})
+    self.player=Player:new({scene=self, x=60, y=60,})
 end
