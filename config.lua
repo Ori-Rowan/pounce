@@ -1,4 +1,6 @@
 
--- logging
-clear_on_start=true
-log_dir="/log"
+_config = {
+    -- logging
+    clear_on_start=true,
+    log_dir="/log"
+}
