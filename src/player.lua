@@ -47,7 +47,10 @@ function Player:draw()
 end
 
 function Player:idle()
-    self.listen_timer = self.listen_timer or seconds_to_frames(1.5+rnd(0.5))
+    local listen_t_fixed = 1
+    local listen_t_offset = 0.5
+
+    self.listen_timer = self.listen_timer or seconds_to_frames(listen_t_fixed+rnd(listen_t_offset))
     if self.listen_timer > 0 then
         self.listen_timer-=1
     else
@@ -86,10 +89,14 @@ end
 
 
 function Player:pounce()
+    local max_dist = 15
+    local pounce_time = 1
+
+    self.pounce_timer = self.pounce_timer or seconds_to_frames(pounce_time)
     if self.pounce_timer > 0 then
         self.pounce_timer-=1
     else
-        if self:get_dist_from_rodent() < 15 then
+        if self:get_dist_from_rodent() < max_dist then
             sfx(2)
             self.scene.rodent:move()
             self.scene.game_state:add_score(100)
@@ -111,7 +118,7 @@ function Player:enter_state(new_state)
     end
 
      if new_state == PLAYER_STATE.pounce then
-        self.pounce_timer=30
+        self.pounce_timer=nil
         self.anim=cocreate(function()self:pounce_anim()end)
     end
 end
