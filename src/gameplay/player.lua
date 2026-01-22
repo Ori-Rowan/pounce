@@ -11,6 +11,7 @@ function Player:new(tbl)
     tbl.dir = nil
     tbl.spd = tbl.spd or 1
     tbl.spr= 1
+    tbl.flip = false
     
     tbl:enter_state(PLAYER_STATE.idle)
     
@@ -42,8 +43,7 @@ end
 
 
 function Player:draw()
-    -- log('spr'.. self.spr)
-    spr(self.spr, self.x, self.y)
+    spr(self.spr, self.x, self.y, 1, 1 ,self.flip)
 end
 
 function Player:idle()
@@ -77,6 +77,11 @@ function Player:walk()
         -- border
         self.x=mid(0,self.x,128)
         self.y=mid(0,self.y,128)
+    end
+    
+    -- check flip
+    if p_dir and p_dir ~= 0.25 and p_dir ~= 0.75 then
+        self.flip = p_dir > 0.25 and p_dir < 0.75
     end
 
     -- check other states
