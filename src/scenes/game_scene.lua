@@ -26,7 +26,7 @@ function GameScene:draw()
 end
 
 function GameScene:enter()
-    self.clock = Clock:new({scene=self, timer=90})
+    self.clock = Clock:new({scene=self, timer=99})
     self.score=Score:new({scene=self})
     self.rodent=Rodent:new({scene=self})
     self.player=Player:new({scene=self, x=60, y=60,})
