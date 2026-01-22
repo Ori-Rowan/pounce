@@ -23,32 +23,15 @@ function get_angle_from_vector(v)
 end
 
 -- sfx
-function change_sfx_volume(sfx, volume)
-    volume = mid(0, volume, 7)
 
-    local sfx_addr = 0x3200 + 68*sfx
-
+function change_sfx_volume(sfx,volume)
+    local v = mid(0,volume,7)
     for i=0,31 do
-        local note_addr = sfx_addr + 2*i
-
-        local low  = peek(note_addr)
-        local high = peek(note_addr+1)
-
-        -- rebuild 16-bit note
-        local note = low | (high << 8)
-
-        -- clear volume bits (9ヌ█⧗11)
-        note = note & ~(0x7 << 9)
-
-        -- set new volume (0ヌ█⧗7)
-
-        note = note | (volume << 9)
-
-        -- write back
-        poke(note_addr,     note & 0xff)
-        poke(note_addr + 1, (note >> 8) & 0xff)
+        local n=0x3200+68*sfx+2*i
+        poke2(n,%n&~0b111<<9|v<<9)
     end
 end
+
 
 -- 8d input
 
