@@ -55,6 +55,7 @@ function entity_movement(e)
 end
 
 -- time
+
 function seconds_to_frames(s)
     return flr(s*30)
 end
@@ -64,6 +65,7 @@ function frame_to_seconds(f)
 end
 
 -- math
+
 function get_digits(num)
     num = abs(flr(num))
     if (num < 10) return 1
@@ -75,3 +77,31 @@ function get_digits(num)
     end
     return digits
 end
+
+-- print
+function print_align_center(msg, x, y, w)
+    local words = split(msg, " ")
+    local rows = {}
+    local current_row = ""
+
+    for i=1, #words do
+        if current_row == "" then
+            current_row = words[i]
+        else
+            current_row ..= " "..words[i]
+        end
+
+        if words[i+1] != nil and (#current_row*4 + #words[i+1]*4) > w then
+            add(rows, current_row)
+            current_row = ""
+        else if words[i+1] == nil then
+            add(rows, current_row)
+        end
+    
+    end
+
+    for i=1, #rows do
+        local row = rows[i]
+        print(row, x+(w-#row*4)/2, y+6*(i-1))
+    end
+end end
