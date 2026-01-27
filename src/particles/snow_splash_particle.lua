@@ -9,10 +9,8 @@ function SnowSplashParticle:new(t)
 
     assert(tbl.x and tbl.y)
 
-    tbl.first_frame  = true
-    tbl.lifetime =  12
-    tbl.start_y = tbl.y
-    tbl.spd_y = -3-rnd(1)
+    tbl.ground_y = tbl.y - rnd(3)
+    tbl.spd_y = -3-rnd(1.5)
     tbl.spd_x = rnd(2)-1
     tbl.gravity = 0.5
 
@@ -20,18 +18,13 @@ function SnowSplashParticle:new(t)
 end
 
 function SnowSplashParticle:update()
-    if self.first_frame then
-        self.first_frame = false
-    else
-        self.spd_y += self.gravity
+    self.spd_y += self.gravity
 
-        self.y += self.spd_y
-        self.x += self.spd_x
-        
-        self.lifetime -= 1
-        if self.y >= self.start_y then
-            self:die()
-        end
+    self.y += self.spd_y
+    self.x += self.spd_x
+    
+    if self.y >= self.ground_y then
+        self:die()
     end
 end
 
