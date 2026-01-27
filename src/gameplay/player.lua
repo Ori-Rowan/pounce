@@ -1,18 +1,24 @@
 Player={}
 Player.__index=Player
 
-function Player:new(tbl)
-    tbl= tbl or {}
-    
+function Player:new(t)
+    t = t or {}
+    local tbl = copy_table(t)
+
     setmetatable(tbl,self)
     
     assert(tbl.x  and tbl.y and tbl.scene)
     
     tbl.dir = nil
-    tbl.spd = tbl.spd or 1
     tbl.spr= 1
     tbl.flip = false
-    
+     
+    tbl.spd = 1 -- movement speed
+    tbl.listen_t_fixed = 1 -- fixed portion of listen time (seconds)
+    tbl.listen_t_offset = 0.5 -- random portion of listen time (seconds)
+    tbl.pounce_time = 1 -- how long does pounce anim take (seconds)
+    tbl.max_dist = 15 -- margin of error for rodents
+
     tbl:enter_state(PLAYER_STATE.idle)
     
     return tbl
@@ -47,10 +53,7 @@ function Player:draw()
 end
 
 function Player:idle()
-    local listen_t_fixed = 1
-    local listen_t_offset = 0.5
-
-    self.listen_timer = self.listen_timer or seconds_to_frames(listen_t_fixed+rnd(listen_t_offset))
+    self.listen_timer = self.listen_timer or seconds_to_frames(self.listen_t_fixed+rnd(self.listen_t_offset))
     if self.listen_timer > 0 then
         self.listen_timer-=1
     else
@@ -78,7 +81,7 @@ function Player:walk()
         self.x=mid(0,self.x,128)
         self.y=mid(0,self.y,128)
     end
-    
+
     -- check flip
     if p_dir and p_dir ~= 0.25 and p_dir ~= 0.75 then
         self.flip = p_dir > 0.25 and p_dir < 0.75
@@ -94,17 +97,16 @@ end
 
 
 function Player:pounce()
-    local max_dist = 15
-    local pounce_time = 1
 
-    self.pounce_timer = self.pounce_timer or seconds_to_frames(pounce_time)
+    self.pounce_timer = self.pounce_timer or seconds_to_frames(self.pounce_time)
     if self.pounce_timer > 0 then
         self.pounce_timer-=1
     else
-        if self:get_dist_from_rodent() < max_dist then
+        if self:get_dist_from_rodent() < self.max_dist then
             sfx(2)
             self.scene.rodent:move()
             self.scene.score:add_score(100)
+            ParticleManager:create_particle(ScoreParticle, {x=self.x, y=self.y})
         end
         self:enter_state(PLAYER_STATE.idle)
     end
@@ -171,5 +173,6 @@ function Player:pounce_anim()
     end
     sfx(1)
     Camera:shake(3)
+    ParticleManager:create_particle(SnowSplashParticle, {x=self.x+4, y=self.y+10},15)
 end
 

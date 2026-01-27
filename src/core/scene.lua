@@ -1,8 +1,10 @@
 Scene = {}
 Scene.__index = Scene
 
-function Scene:new(tbl)
-    tbl = tbl or {}
+function Scene:new(t)
+    t = t or {}
+    local tbl = copy_table(t)
+
 
     setmetatable(tbl,self)
     

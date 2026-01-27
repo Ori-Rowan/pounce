@@ -85,23 +85,39 @@ function print_align_center(msg, x, y, w)
     local current_row = ""
 
     for i=1, #words do
+        local word = words[i]
         if current_row == "" then
-            current_row = words[i]
+            current_row = word
         else
-            current_row ..= " "..words[i]
+            -- Check if adding the next word would exceed width
+            if (#current_row + 1 + #word) * 4 > w then
+                add(rows, current_row)
+                current_row = word
+            else
+                current_row ..= " " .. word
+            end
         end
-
-        if words[i+1] != nil and (#current_row*4 + #words[i+1]*4) > w then
-            add(rows, current_row)
-            current_row = ""
-        else if words[i+1] == nil then
-            add(rows, current_row)
-        end
-    
     end
 
+    -- Add the last row if anything is left
+    if current_row != "" then
+        add(rows, current_row)
+    end
+
+    -- Print centered
     for i=1, #rows do
         local row = rows[i]
-        print(row, x+(w-#row*4)/2, y+6*(i-1))
+        print(row, x + (w - #row * 4) / 2, y + 6 * (i-1))
     end
-end end
+end
+
+-- table
+function copy_table(t)
+  local c = {}
+  for k, v in pairs(t) do
+    c[k] = v
+  end
+  return c
+end
+
+ 

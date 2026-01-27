@@ -2,8 +2,9 @@ GameOverScene = Scene:new()
 GameOverScene.__index = GameOverScene
 
 
-function GameOverScene:new(tbl)
-    tbl = tbl or {}
+function GameOverScene:new(t)
+    t = t or {}
+    local tbl = copy_table(t)
 
     setmetatable(tbl,self)
 

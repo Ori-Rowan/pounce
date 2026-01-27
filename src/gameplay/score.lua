@@ -1,8 +1,9 @@
 Score = {}
 Score.__index = Score
 
-function Score:new(tbl)
-    tbl = tbl or {}
+function Score:new(t)
+    t = t or {}
+    local tbl = copy_table(t)
 
     setmetatable(tbl, self)
 

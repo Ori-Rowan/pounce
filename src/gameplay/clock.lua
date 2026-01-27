@@ -1,8 +1,10 @@
 Clock={}
 Clock.__index = Clock
 
-function Clock:new(tbl)
-    tbl = tbl or {}
+function Clock:new(t)
+    t = t or {}
+    local tbl = copy_table(t)
+
 
     setmetatable(tbl, self)
 

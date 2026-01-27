@@ -2,8 +2,9 @@ GameScene = Scene:new()
 GameScene.__index = GameScene
 
 
-function GameScene:new(tbl)
-    tbl = tbl or {}
+function GameScene:new(t)
+    t = t or {}
+    local tbl = copy_table(t)
 
     setmetatable(tbl,self)
     
@@ -30,4 +31,5 @@ function GameScene:enter()
     self.score=Score:new({scene=self})
     self.rodent=Rodent:new({scene=self})
     self.player=Player:new({scene=self, x=60, y=60,})
+
 end
