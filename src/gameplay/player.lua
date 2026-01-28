@@ -17,6 +17,8 @@ function Player:new(t)
     tbl.listen_t_fixed = 1 -- fixed portion of listen time (seconds)
     tbl.listen_t_offset = 0.5 -- random portion of listen time (seconds)
     tbl.pounce_time = 1 -- how long does pounce anim take (seconds)
+    tbl.camera_shake_f = 3
+    tbl.pounce_sfx = 1
     tbl.max_dist = 15 -- margin of error for rodents
 
     tbl:enter_state(PLAYER_STATE.idle)
@@ -165,14 +167,21 @@ function Player:walk_anim()
 end
 
 function Player:pounce_anim()
-    self.spr=5
-    for i=0,6 do
-        yield()
-        yield()
-        self.spr+=1
+    while true do
+        self.spr=5
+        for i=1,7 do
+            yield()
+            yield()
+            self.spr+=1
+        end
+        sfx(self.pounce_sfx)
+        Camera:shake(self.camera_shake_f)
+        ParticleManager:create_particle(SnowSplashParticle, {x=self.x+4, y=self.y+10},15)
+        
+        for i=1,seconds_to_frames(self.pounce_time)-7 do 
+            yield()
+        end
+        
     end
-    sfx(1)
-    Camera:shake(3)
-    ParticleManager:create_particle(SnowSplashParticle, {x=self.x+4, y=self.y+10},15)
 end
 

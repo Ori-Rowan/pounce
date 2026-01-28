@@ -79,7 +79,7 @@ function get_digits(num)
 end
 
 -- print
-function print_align_center(msg, x, y, w)
+function print_align_center(msg, x, y, w, col)
     local words = split(msg, " ")
     local rows = {}
     local current_row = ""
@@ -90,7 +90,7 @@ function print_align_center(msg, x, y, w)
             current_row = word
         else
             -- Check if adding the next word would exceed width
-            if (#current_row + 1 + #word) * 4 > w then
+            if  str_width(current_row.." "..word)> w then
                 add(rows, current_row)
                 current_row = word
             else
@@ -107,8 +107,17 @@ function print_align_center(msg, x, y, w)
     -- Print centered
     for i=1, #rows do
         local row = rows[i]
-        print(row, x + (w - #row * 4) / 2, y + 6 * (i-1))
+        print(row, x + (w - str_width(row)) / 2, y + 6 * (i-1), col)
     end
+end
+
+function str_width(str)
+    local len = 0
+    foreach(str, function (char)
+        len += 4
+        if (ord(char) >= 128) len+=4
+    end)
+    return len
 end
 
 -- table
@@ -118,6 +127,20 @@ function copy_table(t)
     c[k] = v
   end
   return c
+end
+
+-- Source - https://stackoverflow.com/a/33511182
+-- Posted by Oka, modified by community. See post 'Timeline' for change history
+-- Retrieved 2026-01-28, License - CC BY-SA 3.0
+
+local function has_value (t, val)
+    for i, v in ipairs(t) do
+        if v == val then
+            return true
+        end
+    end
+
+    return false
 end
 
  
