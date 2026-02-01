@@ -48,6 +48,7 @@ end
 
 function MenuScene:main_update()
     -- pointer
+    local l_pointer = self.pointer
     if btnp(2) then
         self.pointer-=1
     end
@@ -55,9 +56,14 @@ function MenuScene:main_update()
         self.pointer+=1
     end
     self.pointer = mid(1,self.pointer,3)
-    
+    if l_pointer != self.pointer then
+        sfx(3)
+    end
+
+
     -- btn press
     if btnp(5) then
+        sfx(4)
         if self.pointer==1 then
             log('Enter GameScene')
             SceneManager:enter_scene(GameScene)
@@ -95,25 +101,30 @@ function MenuScene:controls_update()
     end)
 
     if btnp(5) then
+        sfx(4)
         self.state=MENU_SCENE_STATE.main
     end
 end
 
 function MenuScene:controls_draw()
-    rectfill(10,10,118,118,6)
-    rect(10,10,118,118,0)
+    rectfill(5,30,123,98,6)
+    rect(5,30,123,98,0)
     
     rectfill(12,40,40,68,7)
+    rect(12,40,40,68,0)
     print_align_center("stand to listen", 12,72,30)
     
     rectfill(50,40,78,68,7)
+    rect(50,40,78,68,0)
     print_align_center("use ⬅️⬆️➡️⬇️ to walk", 50, 72, 30)
-    
+
     rectfill(88,40,116,68,7)
+    rect(88,40,116,68,0)
     print_align_center("use ❎ to pounce", 88, 72, 30)
     
-    print("❎ back", 12, 12, 0)
-    rect(10,10,40,18,0)
+    rectfill(5,20,35,28,6)
+    rect(5,20,35,28,0)
+    print("❎ back", 7, 22, 0)
 
     foreach(self.players, function (p)
         p:draw()
@@ -122,17 +133,19 @@ end
 
 function MenuScene:options_update()
     if btnp(5) then
+        sfx(4)
         self.state=MENU_SCENE_STATE.main
     end
 end
 
 function MenuScene:options_draw()
-    rectfill(10,10,118,118,6)
-    rect(10,10,118,118,0)
+    rectfill(5,30,123,98,6)
+    rect(5,30,123,98,0)
 
      
-    print("❎ back", 12, 12, 0)
-    rect(10,10,40,18,0)
+    rectfill(5,20,35,28,6)
+    rect(5,20,35,28,0)
+    print("❎ back", 7, 22, 0)
 
     print_align_center("to be added", 10, 60, 108)
 
