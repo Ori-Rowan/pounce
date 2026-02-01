@@ -12,6 +12,7 @@ __lua__
 #include src/core/particle_manager.lua
 #include src/particles/particle.lua
 #include src/particles/score_particle.lua
+#include src/particles/snow_fly_particle.lua
 #include src/particles/snow_splash_particle.lua
 #include src/scenes/game_scene.lua
 #include src/scenes/game_over_scene.lua
