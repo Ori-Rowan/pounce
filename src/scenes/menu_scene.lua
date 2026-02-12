@@ -41,9 +41,7 @@ function MenuScene:enter()
     self.pointer = 1 
     self.state = MENU_SCENE_STATE.main
 
-    for i=1,50 do
-        ParticleManager:create_particle(SnowFlyParticle)
-    end
+    ParticleManager:create_particle(SnowFlyParticle, {}, 50, "snowflakes")
 end
 
 function MenuScene:main_update()

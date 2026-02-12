@@ -19,5 +19,9 @@ function Particle:draw()
 end
 
 function Particle:die()
-    del(ParticleManager.particles, self)    
+    if self.layer then
+        del(ParticleManager.layers[self.layer], self)    
+    else
+        del(ParticleManager.particles, self)    
+    end
 end

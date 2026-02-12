@@ -176,7 +176,7 @@ function Player:pounce_anim()
         end
         sfx(self.pounce_sfx)
         Camera:shake(self.camera_shake_f)
-        ParticleManager:create_particle(SnowSplashParticle, {x=self.x+4, y=self.y+10},15)
+        ParticleManager:create_particle(SnowSplashParticle, {x=self.x+4, y=self.y+10},15,"snowflakes")
         
         for i=1,seconds_to_frames(self.pounce_time)-7 do 
             yield()
