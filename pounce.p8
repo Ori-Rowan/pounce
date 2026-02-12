@@ -3,8 +3,7 @@ version 42
 __lua__
 
 #include config.lua
-#include src/utils/logging.lua
-#include src/utils/utils.lua
+#include src/oris_toolbox_mini.p8.lua
 #include src/main.lua
 #include src/core/scene_manager.lua
 #include src/core/scene.lua

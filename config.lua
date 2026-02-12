@@ -1,6 +1,8 @@
 
-_config = {
-    -- logging
-    clear_on_start=true,
-    log_dir="/log"
+_CONFIG = {
+    
+    oris_toolbox= {
+        log_clear_on_start=true,
+        log_dir="/log"
+    }
 }

@@ -2,6 +2,7 @@
 function _init()
     palt(14)
 
+    log(tostr(_CONFIG));
     SceneManager:enter_scene(MenuScene)
 end
 
