@@ -250,3 +250,168 @@ end
 
 -- END OF general\vector_lib.lua
 
+-- START OF particle_manager\particle.lua
+
+-- priority: 1
+
+Particle = {}
+Particle.__index = Particle
+
+function Particle:new(t)
+    t = t or {}
+    local tbl = copy_table(t)
+
+    setmetatable(tbl, self)
+
+    return tbl
+end
+
+function Particle:update()
+    log('Update unimplemented in particle', "WARNING")
+end
+
+function Particle:draw()
+    log('Draw unimplemented in particle', "WARNING")
+end
+
+function Particle:die()
+    if self.layer then
+        del(ParticleManager.layers[self.layer], self)    
+    else
+        del(ParticleManager.particles, self)    
+    end
+end
+-- END OF particle_manager\particle.lua
+
+-- START OF scene_manager\scene.lua
+-- priority : 1
+
+Scene = {}
+Scene.__index = Scene
+
+function Scene:new(t)
+    t = t or {}
+    local tbl = copy_table(t)
+
+    setmetatable(tbl,self)
+    
+    return tbl   
+end
+
+function Scene:update()
+    log("Scene has no update method", "WARNING")
+end
+
+function Scene:draw()
+    log("Scene has no draw method", "WARNING")
+end
+
+function Scene:enter()
+    log("Scene has no enter method", "WARNING")
+end
+-- END OF scene_manager\scene.lua
+
+-- START OF camera\camera.lua
+-- priority: 1
+
+Camera = {
+    shake_offset = 2,
+    shake_timer = 0,
+}
+
+function Camera:shake(frames)
+    self.shake_timer=frames
+end
+
+function Camera:update()
+    if (self.shake_timer > 0) self.shake_timer-=1 
+end
+
+function Camera:draw()
+    if self.shake_timer > 0 then
+        camera(self:get_offset(), self:get_offset())
+    else
+        camera(0,0)
+    end
+end
+
+function Camera:get_offset()
+    return rnd(self.shake_offset*2) - self.shake_offset
+end
+-- END OF camera\camera.lua
+
+-- START OF particle_manager\particle_manager.lua
+-- priority: 1
+
+ParticleManager = {
+    particles = {},
+    layers = {}
+}
+
+function ParticleManager:create_particle(particle, tbl, amount, layer)
+    amount = amount or 1
+    home = self.particles
+    if layer then
+        local home = self.layers[layer]
+        tbl.layer = layer
+    end
+
+    for i=1, amount do   
+        add(home, particle:new(tbl))
+    end
+end
+
+function ParticleManager:init_layer(layer)
+    self.layers[layer] = {}
+end
+
+function ParticleManager:update(layer)
+    local particles = self.particles        
+    if layer then
+        particles = self.layers[layer]
+    end
+    log("updating layer: "..tostr(layer))
+
+    foreach(particles, function (p)
+        p:update()
+    end)
+end
+
+function ParticleManager:draw(layer)
+    local particles = self.particles        
+    if layer then
+        particles = self.layers[layer]
+    end
+
+    foreach(particles, function (p)
+        p:draw()
+    end)
+end
+-- END OF particle_manager\particle_manager.lua
+
+-- START OF scene_manager\scene_manager.lua
+-- priority: 1
+
+SceneManager = {
+    current_scene=nil
+}
+
+function SceneManager:update()
+    if (self.current_scene == nil) return log("No current scene", "Warning")
+
+    self.current_scene:update()
+end
+
+function SceneManager:draw()
+    if (self.current_scene == nil) return log("No current scene", "Warning")
+
+    self.current_scene:draw()
+end
+
+function SceneManager:enter_scene(scene, tbl)
+    tbl = tbl or {}
+    self.current_scene = scene:new(tbl)
+    self.current_scene:enter()
+end
+-- END OF scene_manager\scene_manager.lua
+

@@ -5,11 +5,6 @@ __lua__
 #include config.lua
 #include src/oris_toolbox_mini.p8.lua
 #include src/main.lua
-#include src/core/scene_manager.lua
-#include src/core/scene.lua
-#include src/core/camera.lua
-#include src/core/particle_manager.lua
-#include src/particles/particle.lua
 #include src/particles/score_particle.lua
 #include src/particles/snow_fly_particle.lua
 #include src/particles/snow_splash_particle.lua
